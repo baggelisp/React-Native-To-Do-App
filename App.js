@@ -1,19 +1,39 @@
-import { StyleSheet, Text, View , Platform, TouchableWithoutFeedback, Button, KeyboardAvoidingView, TextInput} from 'react-native';
-import { TouchableOpacity } from 'react-native-web';
+import { StyleSheet, Text, View , Platform, TouchableOpacity, Keyboard, KeyboardAvoidingView, TextInput} from 'react-native';
 import Task from './components/Task';
+import { useState } from 'react';
 
 
 export default function App() {
+  const [task, setTask] = useState('');
+  const [taskItems, setTaskItems] = useState([])
+
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask('');
+  }
+
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  }
+
   return (
     <View style={styles.container}>
       {/* Today's tasks */}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>What's up, Joy!</Text>
         <View style={styles.items}>
-          <Task text='task 1'></Task>
-          <Task text='task 2'></Task>
-          <Task text='task 3'></Task>
-
+          {
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
+                  <Task text={item} /> 
+                </TouchableOpacity>
+              )
+            })
+          }
         </View>
       </View>
 
@@ -23,9 +43,9 @@ export default function App() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.writeTaskWrapper}
       >
-        <TextInput placeholder="Write a task!" style={styles.textInput} />
+        <TextInput value={task} onChangeText={text => setTask(text)} placeholder="Write a task!" style={styles.textInput} />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleAddTask}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
