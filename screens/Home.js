@@ -46,10 +46,9 @@ export default function Home() {
                 <TextInput value={task} onChangeText={text => setTask(text)} placeholder="Write a task!" style={styles.textInput} />
 
                 <TouchableOpacity onPress={handleAddTask}>
-                <View style={styles.addWrapper}>
-                    <Text style={styles.addText}>+</Text>
-                </View>
-
+                  <View style={styles.addWrapper}>
+                      <Text style={styles.addText}>+</Text>
+                  </View>
                 </TouchableOpacity>
                 
             </KeyboardAvoidingView>
