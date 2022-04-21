@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native-web'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-function Task(props) {
+function Task({textInput}) {
   return (
     <View style={styles.item}>
         <View style={styles.itemLeft}>
             <TouchableOpacity style={styles.circular}></TouchableOpacity>
-            <Text style={styles.itemText}>{props.text}</Text>
+            <Text style={styles.itemText}>{textInput}</Text>
         </View>
         {/* <View style={styles.circular}></View> */}
     </View>

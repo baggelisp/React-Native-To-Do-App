@@ -2,7 +2,6 @@ import {SafeAreaView, StyleSheet, Text, View , Platform, TouchableOpacity, Keybo
 import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
 import { getData } from '../services/storage';
-import Toast from 'react-native-toast-message';
 
 export default function Home({navigation}) {
 
@@ -43,10 +42,13 @@ export default function Home({navigation}) {
                     taskItems.map((item, index) => {
                     return (
                         <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                        <Task text={item} /> 
+                          <Task textInput={item} /> 
                         </TouchableOpacity>
                     )
                     })
+                }
+                {
+                  !taskItems.length && (<Text>No task yet! </Text>)
                 }
                 </View>
             </View>
