@@ -1,12 +1,26 @@
 import {SafeAreaView, StyleSheet, Text, View , Platform, TouchableOpacity, Keyboard, KeyboardAvoidingView, TextInput} from 'react-native';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
+import { getData } from '../services/storage';
+import Toast from 'react-native-toast-message';
 
-export default function Home() {
+export default function Home({navigation}) {
 
     const [task, setTask] = useState('');
     const [taskItems, setTaskItems] = useState([])
+    const [username, setUsername] = useState('');
 
+    useEffect( () => {
+      const savedNamePromise = getData('username');
+      savedNamePromise.then( username => {
+        if (!username) return;
+        if (username == 'error') {
+          navigation.navigate('AddName');
+        }
+        setUsername(username);
+      })
+    }, [])
+    
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task]);
@@ -23,7 +37,7 @@ export default function Home() {
         <SafeAreaView style={styles.container}>
             {/* Today's tasks */}
             <View style={styles.tasksWrapper}>
-                <Text style={styles.sectionTitle}>What's up, Joy!</Text>
+                <Text style={styles.sectionTitle}>What's up{username && `, ${username}`}!</Text>
                 <View style={styles.items}>
                 {
                     taskItems.map((item, index) => {

@@ -1,13 +1,45 @@
 import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { saveData, getData } from '../services/storage';
+import Toast from 'react-native-toast-message';
 
 const staticImage = require("../assets/undraw_Swipe_profiles_re_tvqm.png");
 
-const AddName = () => {
-  const [name, setName] = useState('');
+const AddName = ({ navigation }) => {
+  const [username, setUsername] = useState('');
+
+  useEffect( () => {
+    const savedNamePromise = getData('username');
+    savedNamePromise.then( username => {
+      if (!username) return;
+      if (username == 'error') {
+        Toast.show({
+          type: 'error',
+          text1: 'There was an error..Please try again.',
+        });
+      }
+      setUsername(username);
+      navigation.navigate('Home');
+    })
+  }, [])
 
   const handleAddName = () => {
-    console.log(name)
+    if (!username) {
+      Toast.show({
+        type: 'error',
+        text1: 'Please fill your name!',
+      });
+      return;
+    };
+    const saveDataPromise = saveData('username', username);
+    saveDataPromise.then( result => {
+      navigation.navigate('Home');
+    }, error => {
+      Toast.show({
+        type: 'error',
+        text1: 'Please fill your name!',
+      });
+    })
   }
 
   return (
@@ -18,7 +50,7 @@ const AddName = () => {
         />
         <Text style={styles.nameText}>Your Name: </Text>
         <View style={styles.writeNameWrapper}>
-            <TextInput value={name} onChangeText={text => setName(text)} placeholder="Your name!" style={styles.textInput} />    
+            <TextInput value={username || ''} onChangeText={text => setUsername(text)} placeholder="Your name!" style={styles.textInput} />    
             <TouchableOpacity onPress={handleAddName}>
               <View style={styles.nextWrapper}>
                   <Text style={styles.addText}>Next</Text>
