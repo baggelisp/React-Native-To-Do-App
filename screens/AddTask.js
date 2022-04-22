@@ -1,5 +1,5 @@
 import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView} from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { saveData, getData } from '../services/storage';
 import Toast from 'react-native-toast-message';
 

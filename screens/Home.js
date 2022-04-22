@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, Text, View , Platform, TouchableOpacity, Keyboard, KeyboardAvoidingView, TextInput} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View , TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
 import { getData, saveData } from '../services/storage';
@@ -6,7 +6,6 @@ import Toast from 'react-native-toast-message';
 
 export default function Home({navigation}) {
 
-    const [task, setTask] = useState('');
     const [taskItems, setTaskItems] = useState([])
     const [username, setUsername] = useState('');
 
