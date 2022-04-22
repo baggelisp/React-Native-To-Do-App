@@ -1,7 +1,8 @@
 import {SafeAreaView, StyleSheet, Text, View , Platform, TouchableOpacity, Keyboard, KeyboardAvoidingView, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
-import { getData } from '../services/storage';
+import { getData, saveData } from '../services/storage';
+import Toast from 'react-native-toast-message';
 
 export default function Home({navigation}) {
 
@@ -9,29 +10,42 @@ export default function Home({navigation}) {
     const [taskItems, setTaskItems] = useState([])
     const [username, setUsername] = useState('');
 
+    // Load Username
     useEffect( () => {
       const savedNamePromise = getData('username');
       savedNamePromise.then( username => {
-        if (!username) return;
-        if (username == 'error') {
+        if (!username ||  username == 'error'){
           navigation.navigate('AddName');
         }
         setUsername(username);
       })
     }, [])
+
+    // Load tasks
+    useEffect( () => {
+      const tasksPromise = getData('tasks');
+      tasksPromise.then( tasks => {
+        if (!tasks) tasks = '[]';
+        let tasksArr = JSON.parse(tasks);
+        setTaskItems([...tasksArr])
+      })
+    }, [])
     
     const handleAddTask = () => {
         navigation.navigate('AddTask');
-        return;
-        Keyboard.dismiss();
-        setTaskItems([...taskItems, task]);
-        setTask('');
     }
 
     const completeTask = (index) => {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         setTaskItems(itemsCopy);
+        const saveDataPromise = saveData('tasks', JSON.stringify([...itemsCopy]));
+        saveDataPromise.then( result => {
+          Toast.show({
+            type: 'success',
+            text1: 'Task completed!',
+          });
+        });
     }
 
   return (
@@ -57,19 +71,9 @@ export default function Home({navigation}) {
 
             {/* White a task */}
 
-            <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.writeTaskWrapper}
-            >
-                <TextInput value={task} onChangeText={text => setTask(text)} placeholder="Write a task!" style={styles.textInput} />
-
-                <TouchableOpacity onPress={handleAddTask}>
-                  <View style={styles.addWrapper}>
-                      <Text style={styles.addText}>+</Text>
-                  </View>
-                </TouchableOpacity>
-                
-            </KeyboardAvoidingView>
+            <TouchableOpacity style={styles.addWrapper} onPress={handleAddTask}>
+              <Text style={styles.addText}>+</Text>
+            </TouchableOpacity>
 
         </SafeAreaView>
   )
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#F3F3F3',
     },
     tasksWrapper: {
-      paddingTop: 80,
+      paddingTop: 40,
       paddingHorizontal: 20,
     },
     sectionTitle: {
@@ -93,23 +97,6 @@ const styles = StyleSheet.create({
     items: {
       marginTop: 30
     },
-    writeTaskWrapper: {
-      position: 'absolute',
-      bottom: 60,
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center'
-    },
-    textInput: {
-      paddingVertical: 15,
-      paddingHorizontal: 15,
-      backgroundColor: '#FFF',
-      borderRadius: 60,
-      borderColor: '#C0C0C0',
-      borderWidth: 1,
-      width: 250,
-    },
     addWrapper: {
       width: 60,
       height: 60,
@@ -117,12 +104,16 @@ const styles = StyleSheet.create({
       borderRadius: 60,
       justifyContent: 'center',
       alignItems: 'center',
-      borderColor: '#C0C0C0',
+      borderColor: '#6C63FF',
       borderWidth: 1,
+      position: 'absolute',
+      bottom: 40,
+      right: 20
     }, 
     addText: {
       fontSize: 24,
-      color: '#C0C0C0'
-    }
+      color: '#6C63FF',
+      fontWeight: 'bold'
+    },
   });
   

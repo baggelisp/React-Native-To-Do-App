@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
         width: 24,
         height: 24,
         marginRight: 15,
-        borderColor: '#55BCF6',
+        borderColor: '#6C63FF',
         borderWidth: 3,
-        borderRadius: 12,
+        borderRadius: 6,
     },
     itemText: {
         maxWidth: '80%',

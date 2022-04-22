@@ -15,6 +15,6 @@ export const getData = async (key) => {
       const value = await AsyncStorage.getItem(key)
       return value;
     } catch(e) {
-      // error reading value
+        return 'error'
     }
   }
