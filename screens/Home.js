@@ -37,16 +37,34 @@ export default function Home({navigation}) {
     }
 
     const completeTask = (index) => {
-        let itemsCopy = [...taskItems];
-        itemsCopy.splice(index, 1);
-        setTaskItems(itemsCopy);
-        const saveDataPromise = saveData('tasks', JSON.stringify([...itemsCopy]));
-        saveDataPromise.then( result => {
-          Toast.show({
-            type: 'success',
-            text1: 'Task completed!',
-          });
+      let completedTask = {
+        category: taskItems[index].category || 'none',
+        completed: true,
+        text: taskItems[index].text || ''
+      }
+      let itemsCopy = [...taskItems];
+      itemsCopy[index] = {...completedTask}
+      setTaskItems(itemsCopy);
+      const saveDataPromise = saveData('tasks', JSON.stringify([...itemsCopy]));
+      saveDataPromise.then( result => {
+        Toast.show({
+          type: 'success',
+          text1: 'Task completed!',
         });
+      });
+    }
+
+    const deleteTask = (index) => {
+      let itemsCopy = [...taskItems];
+      itemsCopy.splice(index, 1);
+      setTaskItems(itemsCopy);
+      const saveDataPromise = saveData('tasks', JSON.stringify([...itemsCopy]));
+      saveDataPromise.then( result => {
+        Toast.show({
+          type: 'success',
+          text1: 'Task deleted!',
+        });
+      });
     }
 
   return (
@@ -59,7 +77,7 @@ export default function Home({navigation}) {
                     taskItems.map((item, index) => {
                     return (
                         <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                          <Task textInput={item} /> 
+                          <Task textInput={item.text} completed={item.completed}/> 
                         </TouchableOpacity>
                     )
                     })

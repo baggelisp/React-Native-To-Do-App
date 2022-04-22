@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-function Task({textInput}) {
+function Task({textInput, completed}) {
   return (
     <View style={styles.item}>
         <View style={styles.itemLeft}>
-            <TouchableOpacity style={styles.circular}></TouchableOpacity>
-            <Text style={styles.itemText}>{textInput}</Text>
+            <TouchableOpacity style={[styles.circular, completed && {backgroundColor: '#6C63FF'} ]}></TouchableOpacity>
+            <Text style={[styles.itemText,completed && {textDecorationLine: 'line-through'}]}>{textInput}</Text>
         </View>
         {/* <View style={styles.circular}></View> */}
     </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     itemLeft: {
         flexDirection: 'row',
         alignItems: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     },
     circular: {
         width: 24,
@@ -41,5 +41,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         maxWidth: '80%',
+        fontSize: 14,
+        color:'#595959'
     }
 });

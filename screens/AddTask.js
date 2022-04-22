@@ -20,7 +20,12 @@ const AddTask = ({navigation}) => {
     tasksPromise.then( tasks => {
       if (!tasks) tasks = '[]';
       let tasksArr = JSON.parse(tasks);
-      const saveDataPromise = saveData('tasks', JSON.stringify([...tasksArr, task]));
+      let newTaskObj = {
+        text: task,
+        completed: false,
+        category: 'none'
+      }
+      const saveDataPromise = saveData('tasks', JSON.stringify([...tasksArr, newTaskObj]));
       saveDataPromise.then( result => {
         Toast.show({
           type: 'success',
