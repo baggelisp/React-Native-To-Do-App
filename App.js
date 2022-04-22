@@ -5,7 +5,7 @@ export default function App() {
   return (
     <>
     <RootNavigation/>
-    <Toast />
+    <Toast topOffset={80}/>
     </>
   );
 }

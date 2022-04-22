@@ -1,4 +1,4 @@
-import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView} from 'react-native'
+import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView, KeyboardAvoidingView} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { saveData, getData } from '../services/storage';
 import Toast from 'react-native-toast-message';
@@ -48,15 +48,19 @@ const AddName = ({ navigation }) => {
           style={styles.stretch}
           source={staticImage}
         />
-        <Text style={styles.nameText}>Your Name: </Text>
-        <View style={styles.writeNameWrapper}>
-            <TextInput value={username || ''} onChangeText={text => setUsername(text)} placeholder="Your name!" style={styles.textInput} />    
-            <TouchableOpacity onPress={handleAddName}>
-              <View style={styles.nextWrapper}>
-                  <Text style={styles.addText}>Next</Text>
-              </View>
-            </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <Text style={styles.nameText}>Your Name: </Text>
+          <View style={styles.writeNameWrapper}>
+              <TextInput value={username || ''} onChangeText={text => setUsername(text)} placeholder="Your name!" style={styles.textInput} />    
+              <TouchableOpacity onPress={handleAddName}>
+                <View style={styles.nextWrapper}>
+                    <Text style={styles.addText}>Next</Text>
+                </View>
+              </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
   )
 }

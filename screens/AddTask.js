@@ -1,4 +1,4 @@
-import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView} from 'react-native'
+import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView, KeyboardAvoidingView, Platform} from 'react-native'
 import React, { useState } from 'react'
 import { saveData, getData } from '../services/storage';
 import Toast from 'react-native-toast-message';
@@ -59,15 +59,19 @@ const AddTask = ({navigation}) => {
         style={styles.stretch}
         source={staticImage}
       />
-      <Text style={styles.nameText}>New Task</Text>
-      <View style={styles.writeNameWrapper}>
-          <TextInput value={task || ''} onChangeText={text => setTask(text)} placeholder="Title" style={styles.textInput} />    
-          <TouchableOpacity onPress={handleAddTask}>
-            <View style={styles.nextWrapper}>
-                <Text style={styles.addText}>Add</Text>
-            </View>
-          </TouchableOpacity>
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <Text style={styles.nameText}>New Task</Text>
+        <View style={styles.writeNameWrapper}>
+            <TextInput value={task || ''} onChangeText={text => setTask(text)} placeholder="Title" style={styles.textInput} />    
+            <TouchableOpacity onPress={handleAddTask}>
+              <View style={styles.nextWrapper}>
+                  <Text style={styles.addText}>Add</Text>
+              </View>
+            </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
@@ -134,7 +138,7 @@ var styles = StyleSheet.create({
     position: 'absolute',
     left: 30,
     top: 30,
-    width: '40'
+    width: 60
   }, 
   backButton: {
     fontSize: 20,

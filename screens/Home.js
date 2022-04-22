@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
 import { getData, saveData } from '../services/storage';
 import Toast from 'react-native-toast-message';
+// import { useFocusEffect } from '@react-navigation/native'; 
 
 export default function Home({navigation}) {
 
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
       borderColor: '#6C63FF',
       borderWidth: 1,
       position: 'absolute',
-      bottom: 40,
-      right: 20
+      bottom: 50,
+      right: 30
     }, 
     addText: {
       fontSize: 24,
