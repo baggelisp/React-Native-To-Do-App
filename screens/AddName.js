@@ -1,4 +1,4 @@
-import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native'
+import { Text, View , StyleSheet, Image, TouchableOpacity, TextInput, SafeAreaView} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { saveData, getData } from '../services/storage';
 import Toast from 'react-native-toast-message';
@@ -43,7 +43,7 @@ const AddName = ({ navigation }) => {
   }
 
   return (
-      <View style={styles.content}>
+      <SafeAreaView style={styles.content}>
         <Image
           style={styles.stretch}
           source={staticImage}
@@ -57,7 +57,7 @@ const AddName = ({ navigation }) => {
               </View>
             </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
   )
 }
 
@@ -79,7 +79,8 @@ var styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color:'#595959'
   },
   writeNameWrapper: {
     paddingTop: 20,

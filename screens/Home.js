@@ -21,6 +21,8 @@ export default function Home({navigation}) {
     }, [])
     
     const handleAddTask = () => {
+        navigation.navigate('AddTask');
+        return;
         Keyboard.dismiss();
         setTaskItems([...taskItems, task]);
         setTask('');
@@ -85,7 +87,8 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
       fontSize: 24,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color:'#595959'
     },
     items: {
       marginTop: 30
