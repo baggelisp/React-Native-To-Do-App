@@ -3,10 +3,10 @@ import React, {useState, useEffect} from 'react'
 import Task from '../components/Task';
 import { getData, saveData } from '../services/storage';
 import Toast from 'react-native-toast-message';
-// import { useFocusEffect } from '@react-navigation/native'; 
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Home({navigation}) {
-
+    const isFocused = useIsFocused();
     const [taskItems, setTaskItems] = useState([])
     const [username, setUsername] = useState('');
 
@@ -20,16 +20,17 @@ export default function Home({navigation}) {
         setUsername(username);
       })
     }, [])
-
+    
     // Load tasks
     useEffect( () => {
+      if (!isFocused) return;
       const tasksPromise = getData('tasks');
       tasksPromise.then( tasks => {
         if (!tasks) tasks = '[]';
         let tasksArr = JSON.parse(tasks);
         setTaskItems([...tasksArr])
       })
-    }, [])
+    }, [isFocused])
     
     const handleAddTask = () => {
         navigation.navigate('AddTask');
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
       borderColor: '#6C63FF',
       borderWidth: 1,
       position: 'absolute',
-      bottom: 50,
+      bottom: 30,
       right: 30
     }, 
     addText: {
