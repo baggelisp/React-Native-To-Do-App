@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 function Task({index, textInput, completed, onSwipeLeft, onSwipeRight}) {
-  return (
+    const swipeableRef = useRef(null);
+    const closeSwipeable = () => {
+        swipeableRef.current.close();
+    }
+    return (
     <Swipeable
-        renderLeftActions={LeftSwipeActions}
+        renderLeftActions={() => LeftSwipeActions(completed ? 'Uncompleted' : ' Completed', completed ? '#f5e7cd' : '#ccffbd')}
         renderRightActions={rightSwipeActions}
-        onSwipeableRightOpen={ () => swipeFromLeftOpen(index, onSwipeRight) }
-        onSwipeableLeftOpen={ () => swipeFromLeftOpen(index, onSwipeLeft) }
+        onSwipeableRightOpen={ onSwipeRight }
+        onSwipeableLeftOpen={ () => {closeSwipeable(); onSwipeLeft(); } }
+        leftThreshold={60}
+        rightThreshold={60}
+        ref={swipeableRef}
+        key={index}
     >
         <View style={styles.item}>
             <View style={styles.itemLeft}>
@@ -56,12 +64,12 @@ const styles = StyleSheet.create({
 
 
 
-const LeftSwipeActions = () => {
+const LeftSwipeActions = (text, color) => {
     return (
       <View
         style={{ 
             flex: 1, 
-            backgroundColor: '#ccffbd', 
+            backgroundColor: color, 
             justifyContent: 'center',
             marginBottom: 20,
             borderRadius: 10 
@@ -76,7 +84,7 @@ const LeftSwipeActions = () => {
             paddingVertical: 20,
           }}
         >
-          Complete
+          {text}
         </Text>
       </View>
     );
@@ -106,10 +114,4 @@ const LeftSwipeActions = () => {
         </Text>
       </View>
     );
-  };
-  const swipeFromLeftOpen = (index, onSwipeLeftFun) => {
-    onSwipeLeftFun(index);
-  };
-  const swipeFromRightOpen = (index, onSwipeRightFun) => {
-    onSwipeRightFun(index);
   };

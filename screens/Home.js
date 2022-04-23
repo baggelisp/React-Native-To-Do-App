@@ -81,8 +81,8 @@ export default function Home({navigation}) {
                             index={index}
                             textInput={item.text} 
                             completed={item.completed}
-                            onSwipeLeft={completeTask}
-                            onSwipeRight={deleteTask}/> 
+                            onSwipeLeft={ () => completeTask(index) }
+                            onSwipeRight={ () => deleteTask(index) }/> 
                         </TouchableOpacity>
                     )
                     })
