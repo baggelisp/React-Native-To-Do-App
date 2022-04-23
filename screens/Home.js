@@ -39,7 +39,7 @@ export default function Home({navigation}) {
     const completeTask = (index) => {
       let completedTask = {
         category: taskItems[index].category || 'none',
-        completed: true,
+        completed: !taskItems[index].completed,
         text: taskItems[index].text || ''
       }
       let itemsCopy = [...taskItems];
@@ -49,7 +49,7 @@ export default function Home({navigation}) {
       saveDataPromise.then( result => {
         Toast.show({
           type: 'success',
-          text1: 'Task completed!',
+          text1: `Task ${taskItems[index].completed ? 'uncompleted' : 'completed'}!`,
         });
       });
     }

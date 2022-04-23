@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     itemLeft: {
         flexDirection: 'row',
         alignItems: 'center',
-        flexWrap: 'wrap',
+        maxWidth: '100%'
     },
     circular: {
         width: 24,
