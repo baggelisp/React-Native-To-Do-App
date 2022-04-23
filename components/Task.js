@@ -1,15 +1,23 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 function Task({textInput, completed}) {
   return (
-    <View style={styles.item}>
-        <View style={styles.itemLeft}>
-            <TouchableOpacity style={[styles.circular, completed && {backgroundColor: '#6C63FF'} ]}></TouchableOpacity>
-            <Text style={[styles.itemText,completed && {textDecorationLine: 'line-through'}]}>{textInput}</Text>
+    <Swipeable
+        renderLeftActions={LeftSwipeActions}
+        renderRightActions={rightSwipeActions}
+        onSwipeableRightOpen={swipeFromRightOpen}
+        onSwipeableLeftOpen={swipeFromLeftOpen}
+    >
+        <View style={styles.item}>
+            <View style={styles.itemLeft}>
+                <TouchableOpacity style={[styles.circular, completed && {backgroundColor: '#6C63FF'} ]}></TouchableOpacity>
+                <Text style={[styles.itemText,completed && {textDecorationLine: 'line-through'}]}>{textInput}</Text>
+            </View>
+            {/* <View style={styles.circular}></View> */}
         </View>
-        {/* <View style={styles.circular}></View> */}
-    </View>
+    </Swipeable>
   )
 }
 
@@ -45,3 +53,63 @@ const styles = StyleSheet.create({
         color:'#595959'
     }
 });
+
+
+
+const LeftSwipeActions = () => {
+    return (
+      <View
+        style={{ 
+            flex: 1, 
+            backgroundColor: '#ccffbd', 
+            justifyContent: 'center',
+            marginBottom: 20,
+            borderRadius: 10 
+        }}
+      >
+        <Text
+          style={{
+            color: '#40394a',
+            paddingHorizontal: 10,
+            fontWeight: '600',
+            paddingHorizontal: 30,
+            paddingVertical: 20,
+          }}
+        >
+          Complete
+        </Text>
+      </View>
+    );
+  };
+  const rightSwipeActions = () => {
+    return (
+      <View
+        style={{
+          flex: 1, 
+          backgroundColor: '#EB343F', 
+          justifyContent: 'center',
+          marginBottom: 20,
+          borderRadius: 10 
+        }}
+      >
+        <Text
+          style={{
+            color: '#1b1a17',
+            paddingHorizontal: 10,
+            fontWeight: '600',
+            paddingHorizontal: 30,
+            paddingVertical: 20,
+            textAlign: 'right'
+          }}
+        >
+          Delete
+        </Text>
+      </View>
+    );
+  };
+  const swipeFromLeftOpen = () => {
+    alert('Swipe from left');
+  };
+  const swipeFromRightOpen = () => {
+    alert('Swipe from right');
+  };
