@@ -2,13 +2,13 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-function Task({textInput, completed}) {
+function Task({index, textInput, completed, onSwipeLeft, onSwipeRight}) {
   return (
     <Swipeable
         renderLeftActions={LeftSwipeActions}
         renderRightActions={rightSwipeActions}
-        onSwipeableRightOpen={swipeFromRightOpen}
-        onSwipeableLeftOpen={swipeFromLeftOpen}
+        onSwipeableRightOpen={ () => swipeFromLeftOpen(index, onSwipeRight) }
+        onSwipeableLeftOpen={ () => swipeFromLeftOpen(index, onSwipeLeft) }
     >
         <View style={styles.item}>
             <View style={styles.itemLeft}>
@@ -107,9 +107,9 @@ const LeftSwipeActions = () => {
       </View>
     );
   };
-  const swipeFromLeftOpen = () => {
-    alert('Swipe from left');
+  const swipeFromLeftOpen = (index, onSwipeLeftFun) => {
+    onSwipeLeftFun(index);
   };
-  const swipeFromRightOpen = () => {
-    alert('Swipe from right');
+  const swipeFromRightOpen = (index, onSwipeRightFun) => {
+    onSwipeRightFun(index);
   };

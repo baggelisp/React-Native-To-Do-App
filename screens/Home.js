@@ -77,7 +77,12 @@ export default function Home({navigation}) {
                     taskItems.map((item, index) => {
                     return (
                         <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                          <Task textInput={item.text} completed={item.completed}/> 
+                          <Task 
+                            index={index}
+                            textInput={item.text} 
+                            completed={item.completed}
+                            onSwipeLeft={completeTask}
+                            onSwipeRight={deleteTask}/> 
                         </TouchableOpacity>
                     )
                     })
