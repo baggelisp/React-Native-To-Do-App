@@ -11,7 +11,7 @@ function Task({index, textInput, completed, onSwipeLeft, onSwipeRight}) {
     <Swipeable
         renderLeftActions={() => LeftSwipeActions(completed ? 'Uncompleted' : ' Completed', completed ? '#f5e7cd' : '#ccffbd')}
         renderRightActions={rightSwipeActions}
-        onSwipeableRightOpen={ onSwipeRight }
+        onSwipeableRightOpen={() => {closeSwipeable(); onSwipeRight();} }
         onSwipeableLeftOpen={ () => {closeSwipeable(); onSwipeLeft(); } }
         leftThreshold={60}
         rightThreshold={60}
