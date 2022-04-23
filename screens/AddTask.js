@@ -142,7 +142,7 @@ var styles = StyleSheet.create({
   backButtonWrapper: {
     position: 'absolute',
     left: 30,
-    top: 30,
+    top: 80,
     width: 60
   }, 
   backButton: {

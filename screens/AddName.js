@@ -33,7 +33,13 @@ const AddName = ({ navigation }) => {
     };
     const saveDataPromise = saveData('username', username);
     saveDataPromise.then( result => {
-      navigation.navigate('Home');
+      Toast.show({
+        type: 'success',
+        text1: `Welcome ${username}!`,
+      });
+      setTimeout( ()=> {
+        navigation.navigate('Home');
+      }, 2000)
     }, error => {
       Toast.show({
         type: 'error',
