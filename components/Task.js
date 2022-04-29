@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 20
     },
     itemLeft: {
         flexDirection: 'row',
@@ -78,10 +78,8 @@ const LeftSwipeActions = (text, color) => {
         <Text
           style={{
             color: '#40394a',
-            paddingHorizontal: 10,
-            fontWeight: '600',
-            paddingHorizontal: 30,
-            paddingVertical: 20,
+            paddingHorizontal: 20,
+            fontWeight: '600'
           }}
         >
           {text}
@@ -97,16 +95,14 @@ const LeftSwipeActions = (text, color) => {
           backgroundColor: '#EB343F', 
           justifyContent: 'center',
           marginBottom: 20,
-          borderRadius: 10 
+          borderRadius: 10
         }}
       >
         <Text
           style={{
             color: '#1b1a17',
-            paddingHorizontal: 10,
             fontWeight: '600',
-            paddingHorizontal: 30,
-            paddingVertical: 20,
+            paddingHorizontal: 20,
             textAlign: 'right'
           }}
         >

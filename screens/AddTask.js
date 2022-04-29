@@ -143,7 +143,8 @@ var styles = StyleSheet.create({
     position: 'absolute',
     left: 30,
     top: 80,
-    width: 60
+    width: 60,
+    zIndex: 2
   }, 
   backButton: {
     fontSize: 20,

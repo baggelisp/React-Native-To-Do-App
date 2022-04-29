@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#F3F3F3',
     },
     tasksWrapper: {
-      paddingTop: 40,
+      paddingTop: 60,
       paddingHorizontal: 20,
     },
     sectionTitle: {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       borderColor: '#6C63FF',
-      borderWidth: 1,
+      borderWidth: 2,
       position: 'absolute',
       bottom: 30,
       right: 30
