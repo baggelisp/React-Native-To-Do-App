@@ -3,8 +3,8 @@
 ## Examples
 
 1.
-![Example 1](images/1.png)
+![Example 1](images/1.jpg)
 2.
-![Example 2](images/2.png)
+![Example 2](images/2.jpg)
 3.
-![Example 3](images/3.png)
+![Example 3](images/3.jpg)
