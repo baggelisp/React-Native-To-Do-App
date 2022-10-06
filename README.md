@@ -3,8 +3,9 @@
 ## Examples
 
 1.
-![Example 1](images/1.jpg =500x)
+<img src="images/1.jpg" width="500">
+
 2.
-![Example 2](images/2.jpg =500x)
+<img src="images/2.jpg" width="500">
 3.
-![Example 3](images/3.jpg =500x)
+<img src="images/3.jpg" width="500">
